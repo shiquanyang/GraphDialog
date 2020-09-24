@@ -7,7 +7,7 @@ SOS_token = 3
 EOS_token = 2
 UNK_token = 0
 
-if (os.cpu_count() > 8):
+if (os.cpu_count() > 4):
     USE_CUDA = True
 else:
     USE_CUDA = False
