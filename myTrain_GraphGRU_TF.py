@@ -6,9 +6,9 @@ import datetime
 import os
 
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-tf.compat.v1.enable_eager_execution()
-tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+# os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+# tf.compat.v1.enable_eager_execution()
+# tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 early_stop = args['earlyStop']
 if args['dataset'] == 'kvr':
