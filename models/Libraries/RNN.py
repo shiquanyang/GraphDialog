@@ -4,7 +4,7 @@ from tensorflow.python.ops import array_ops
 from tensorflow.python.framework import dtypes as dtypes_module
 from tensorflow.python.ops import math_ops
 from tensorflow.python.framework import ops
-from tensorflow_models.Libraries.GraphGRUCell import GraphGRUCell
+from models.Libraries.GraphGRUCell import GraphGRUCell
 from tensorflow.python.keras.utils import generic_utils
 import numpy as np
 import pdb

@@ -2,7 +2,7 @@ import tensorflow as tf
 from utils.config import *
 import pdb
 from tensorflow.python.ops import embedding_ops
-from tensorflow_models.GraphAttentionLayer import GraphAttentionLayer
+from models.GraphAttentionLayer import GraphAttentionLayer
 import numpy as np
 
 

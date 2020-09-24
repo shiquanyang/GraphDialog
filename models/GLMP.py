@@ -1,8 +1,8 @@
 import tensorflow as tf
 from utils.config import *
-from tensorflow_models.encoder import ContextRNN
-from tensorflow_models.ExternalKnowledge import ExternalKnowledge
-from tensorflow_models.decoder import LocalMemoryDecoder
+from models.encoder import ContextRNN
+from models.ExternalKnowledge import ExternalKnowledge
+from models.decoder import LocalMemoryDecoder
 import random
 import numpy as np
 from tensorflow.python.framework import ops

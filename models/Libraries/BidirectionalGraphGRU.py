@@ -1,6 +1,6 @@
 import tensorflow as tf
 from tensorflow.python.keras import backend as K
-from tensorflow_models.Libraries.RNN import RNN
+from models.Libraries.RNN import RNN
 import pdb
 
 

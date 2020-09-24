@@ -1,7 +1,7 @@
 from tqdm import tqdm
 from utils.config import *
-from tensorflow_models.GLMP import *
-from tensorflow_models.GLMPGraph import *
+from models.GLMP import *
+from models.GLMPGraph import *
 import datetime
 import os
 

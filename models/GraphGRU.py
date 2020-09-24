@@ -3,7 +3,7 @@ import numpy as np
 import pdb
 from tensorflow.python.ops import embedding_ops
 from utils.config import *
-from tensorflow_models.Libraries.BidirectionalGraphGRU import *
+from models.Libraries.BidirectionalGraphGRU import *
 
 
 class GraphGRU(tf.keras.Model):

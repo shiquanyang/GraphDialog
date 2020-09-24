@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow_models.Libraries.BidirectionalGraphGRU import BidirectionalGraphGRU
+from models.Libraries.BidirectionalGraphGRU import BidirectionalGraphGRU
 from tensorflow.python.ops import array_ops
 
 

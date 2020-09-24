@@ -1,5 +1,5 @@
 from utils.config import *
-from tensorflow_models.GLMPGraph import *
+from models.GLMPGraph import *
 import tensorflow as tf
 import pdb
 import os

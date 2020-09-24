@@ -1,6 +1,6 @@
 from tqdm import tqdm
 from utils.config import *
-from tensorflow_models.GLMPGraph_with_gate import *
+from models.GLMPGraph_with_gate import *
 import datetime
 import os
 

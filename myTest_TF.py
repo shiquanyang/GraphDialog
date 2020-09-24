@@ -1,5 +1,5 @@
 from utils.config import *
-from tensorflow_models.GLMP import *
+from models.GLMP import *
 import pdb
 
 '''

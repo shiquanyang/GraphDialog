@@ -1,6 +1,6 @@
 from tqdm import tqdm
 from utils.config import *
-from tensorflow_models.GLMP import *
+from models.GLMP import *
 import datetime
 import os
 

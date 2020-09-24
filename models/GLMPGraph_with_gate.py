@@ -1,9 +1,9 @@
 import tensorflow as tf
 from utils.config import *
-from tensorflow_models.encoder import ContextRNN
-from tensorflow_models.GraphGRU import GraphGRU
-from tensorflow_models.KnowledgeGraph_with_gate import KnowledgeGraph
-from tensorflow_models.decoder_with_gate import LocalMemoryDecoder
+from models.encoder import ContextRNN
+from models.GraphGRU import GraphGRU
+from models.KnowledgeGraph_with_gate import KnowledgeGraph
+from models.decoder_with_gate import LocalMemoryDecoder
 import random
 import numpy as np
 from tensorflow.python.framework import ops
