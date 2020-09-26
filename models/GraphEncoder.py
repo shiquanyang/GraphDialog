@@ -3,12 +3,12 @@ import numpy as np
 import pdb
 from tensorflow.python.ops import embedding_ops
 from utils.config import *
-from models.Libraries.BidirectionalGraphGRU import *
+from models.Libraries.BidirectionalGraphEncoder import *
 
 
-class GraphGRU(tf.keras.Model):
+class GraphEncoder(tf.keras.Model):
     def __init__(self, input_size, hidden_size, dropout, lang, recurrent_size, n_layers=1):
-        super(GraphGRU, self).__init__()
+        super(GraphEncoder, self).__init__()
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.n_layers = n_layers
@@ -16,7 +16,7 @@ class GraphGRU(tf.keras.Model):
         self.recurrent_size = recurrent_size
         self.dropout_layer = tf.keras.layers.Dropout(dropout)
         self.embedding = tf.keras.layers.Embedding(input_size, hidden_size, embeddings_initializer=tf.initializers.RandomNormal(0.0, 1.0))  # different: pad token embedding mask.
-        self.bi_graph_gru = BidirectionalGraphGRU(hidden_size, hidden_size, lang.n_types, recurrent_size)
+        self.bi_graph_gru = BidirectionalGraphEncoder(hidden_size, hidden_size, lang.n_types, recurrent_size)
         self.W = tf.keras.layers.Dense(hidden_size,
                                        use_bias=True,
                                        kernel_initializer=tf.initializers.RandomUniform(-(1/np.sqrt(2*hidden_size)),(1/np.sqrt(2*hidden_size))),

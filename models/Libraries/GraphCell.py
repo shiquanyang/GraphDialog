@@ -9,9 +9,9 @@ import numpy as np
 import pdb
 
 
-class GraphGRUCell(tf.keras.Model):
+class GraphCell(tf.keras.Model):
     '''
-    Cell class for GraphGRU layer.
+    Cell class for GraphEncoder layer.
     '''
     def __init__(self,
                  units,
@@ -34,7 +34,7 @@ class GraphGRUCell(tf.keras.Model):
                  dropout=0.,
                  recurrent_dropout=0.,
                  **kwargs):
-        super(GraphGRUCell, self).__init__(**kwargs)
+        super(GraphCell, self).__init__(**kwargs)
         self.units = units
         self.input_dim = input_dim
         self.edge_types = edge_types

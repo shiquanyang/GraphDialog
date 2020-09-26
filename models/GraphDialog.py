@@ -1,10 +1,10 @@
 import tensorflow as tf
 from utils.config import *
 from models.encoder import ContextRNN
-from models.GraphGRU import GraphGRU
+from models.GraphEncoder import GraphEncoder
 from models.ExternalKnowledge import ExternalKnowledge
 from models.KnowledgeGraph import KnowledgeGraph
-from models.decoder import LocalMemoryDecoder
+from models.decoder import Decoder
 import random
 import numpy as np
 from tensorflow.python.framework import ops
@@ -14,10 +14,9 @@ from utils.tensorflow_masked_cross_entropy import *
 from utils.utils_general import *
 import pdb
 
-class GLMPGraph(tf.keras.Model):
+class GraphDialog(tf.keras.Model):
     def __init__(self, hidden_size, lang, max_resp_len, path, task, lr, n_layers, graph_hidden_size, nheads, alpha, dropout, graph_dr, n_graph_layers):
-        super(GLMPGraph, self).__init__()
-        # self.name = 'GLMP'
+        super(GraphDialog, self).__init__()
         self.task = task
         self.input_size = lang.n_words
         self.output_size = lang.n_words
@@ -34,9 +33,9 @@ class GLMPGraph(tf.keras.Model):
         self.max_resp_len = max_resp_len
         self.decoder_hop = n_layers
         self.softmax = tf.keras.layers.Softmax(0)
-        self.encoder = GraphGRU(lang.n_words, hidden_size, dropout, lang, (MAX_DEPENDENCIES_PER_NODE+1))
+        self.encoder = GraphEncoder(lang.n_words, hidden_size, dropout, lang, (MAX_DEPENDENCIES_PER_NODE+1))
         self.extKnow = KnowledgeGraph(lang.n_words, hidden_size, n_layers, graph_hidden_size, nheads, alpha, graph_dr, n_graph_layers)
-        self.decoder = LocalMemoryDecoder(self.encoder.embedding, lang,
+        self.decoder = Decoder(self.encoder.embedding, lang,
                                           hidden_size, self.decoder_hop, dropout)
         self.checkpoint = tf.train.Checkpoint(encoder=self.encoder,
                                               extKnow=self.extKnow,
@@ -70,9 +69,9 @@ class GLMPGraph(tf.keras.Model):
         self.loss, self.print_every, self.loss_g, self.loss_v, self.loss_l = 0.0, 1.0, 0.0, 0.0, 0.0
 
     def save_model(self, dec_type):
-        name_data = "KVR/" if self.task=='' else "BABI/"
+        name_data = "MULTIWOZ/" if self.task=='multiwoz' else "KVR/"
         layer_info = str(self.n_layers)
-        directory = 'save/GLMP-'+args["addName"]+name_data+str(self.task)+'HDD'+\
+        directory = 'save/GraphDialog-'+args["addName"]+name_data+str(self.task)+'HDD'+\
                     str(self.hidden_size)+'BSZ'+str(args['batch'])+'DR'+str(self.dropout)+\
                     'L'+layer_info+'lr'+str(self.lr)+str(dec_type)
         if not os.path.exists(directory):
@@ -343,7 +342,7 @@ class GLMPGraph(tf.keras.Model):
         # pdb.set_trace()
         bleu_score = moses_multi_bleu(np.array(hyp), np.array(ref), lowercase=True)
         acc_score = acc / float(total)
-        print("ACC SCORE:\t" + str(acc_score))
+        # print("ACC SCORE:\t" + str(acc_score))
 
         if args['dataset'] == 'kvr':
             F1_score = F1_pred / float(F1_count)

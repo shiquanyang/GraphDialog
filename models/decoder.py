@@ -5,9 +5,9 @@ import pdb
 from tensorflow.python.ops import embedding_ops
 
 
-class LocalMemoryDecoder(tf.keras.Model):
+class Decoder(tf.keras.Model):
     def __init__(self, shared_emb, lang, embedding_dim, hop, dropout):
-        super(LocalMemoryDecoder, self).__init__()
+        super(Decoder, self).__init__()
         self.num_vocab = lang.n_words
         self.lang = lang
         self.max_hops = hop

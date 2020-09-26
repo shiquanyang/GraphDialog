@@ -1,5 +1,5 @@
 from utils.config import *
-from models.GLMPGraph import *
+from models.GraphDialog import *
 import tensorflow as tf
 import pdb
 import os
@@ -30,14 +30,12 @@ if DS=='kvr':
 	from utils.utils_tensorflow_Ent_multiwoz_knowledge_graph import *
 elif DS=='multiwoz':
 	from utils.utils_tensorflow_Ent_multiwoz_knowledge_graph import *
-elif DS=='babi':
-    from utils.utils_Ent_babi import *
 else:
     print("You need to provide the --dataset information")
 
 train, dev, test, testOOV, lang, max_resp_len, train_length, dev_length, test_length = prepare_data_seq(task, batch_size=BSZ)
 
-model = GLMPGraph(int(HDD),
+model = GraphDialog(int(HDD),
 			 lang,
 			 max_resp_len,
 			 args['path'],

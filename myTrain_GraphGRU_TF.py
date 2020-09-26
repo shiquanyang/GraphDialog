@@ -1,7 +1,7 @@
 from tqdm import tqdm
 from utils.config import *
 from models.GLMP import *
-from models.GLMPGraph import *
+from models.GraphDialog import *
 import datetime
 import os
 
@@ -41,7 +41,7 @@ train, dev, test, testOOV, lang, max_response_len, train_length, dev_length, tes
 # ===============================
 # Build model
 # ===============================
-model = GLMPGraph(int(args['hidden']),
+model = GraphDialog(int(args['hidden']),
                   lang,
                   max_response_len,
                   args['path'],

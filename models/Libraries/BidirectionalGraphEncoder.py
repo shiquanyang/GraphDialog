@@ -4,7 +4,7 @@ from models.Libraries.RNN import RNN
 import pdb
 
 
-class BidirectionalGraphGRU(tf.keras.Model):
+class BidirectionalGraphEncoder(tf.keras.Model):
     '''
     Bidirectional GraphGRU layer.
     '''
@@ -15,7 +15,7 @@ class BidirectionalGraphGRU(tf.keras.Model):
                  recurrent_size=4,
                  merge_mode='concat',
                  **kwargs):
-        super(BidirectionalGraphGRU, self).__init__(**kwargs)
+        super(BidirectionalGraphEncoder, self).__init__(**kwargs)
         self.units = units
         self.input_dim = input_dim
         self.edge_types = edge_types

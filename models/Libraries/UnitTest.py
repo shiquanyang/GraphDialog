@@ -1,11 +1,11 @@
 import tensorflow as tf
-from models.Libraries.BidirectionalGraphGRU import BidirectionalGraphGRU
+from models.Libraries.BidirectionalGraphEncoder import BidirectionalGraphEncoder
 from tensorflow.python.ops import array_ops
 
 
 if __name__ == "__main__":
     # units=2, input_dim=2, edge_types=10, recurrent_size=4
-    bi_graph_gru = BidirectionalGraphGRU(2, 2, 10, 4)
+    bi_graph_encoder = BidirectionalGraphEncoder(2, 2, 10, 4)
     # inputs: batch_size=8, max_len=3, embedding_dim=2
     # inputs: batch_size*max_len*embedding_dim
     inputs = tf.convert_to_tensor([[[0.1, 0.2],[0.0, 0.0],[0.0, 0.0]],[[0.1, 0.2],[0.3, 0.4],[0.0, 0.0]],[[0.1, 0.2],[0.3, 0.4],[0.5, 0.6]],[[0.1, 0.2],[0.3, 0.4],[0.5, 0.6]],[[0.1, 0.2],[0.3, 0.4],[0.5, 0.6]],[[0.1, 0.2],[0.3, 0.4],[0.5, 0.6]],[[0.1, 0.2],[0.3, 0.4],[0.5, 0.6]],[[0.1, 0.2],[0.3, 0.4],[0.5, 0.6]]])
@@ -22,7 +22,7 @@ if __name__ == "__main__":
     # initial_state: 2*recurrent_size*batch_size*embedding_dim
     initial_state = array_ops.zeros([2, 4, 8, 2])
     input_lengths = tf.convert_to_tensor([1, 2, 3, 3, 3, 3, 3, 3])
-    outputs, hidden_f, hidden_b = bi_graph_gru(inputs, input_lengths, deps, edge_types, mask, cell_mask, initial_state, True)
+    outputs, hidden_f, hidden_b = bi_graph_encoder(inputs, input_lengths, deps, edge_types, mask, cell_mask, initial_state, True)
     print(outputs)
     print(hidden_f)
     print(hidden_b)
