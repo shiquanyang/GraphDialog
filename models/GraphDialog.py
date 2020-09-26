@@ -10,7 +10,7 @@ import json
 from utils.measures import wer, moses_multi_bleu
 from utils.tensorflow_masked_cross_entropy import *
 from utils.utils_general import *
-import pdb
+
 
 class GraphDialog(tf.keras.Model):
     def __init__(self, hidden_size, lang, max_resp_len, path, task, lr, n_layers, graph_hidden_size, nheads, alpha, dropout, graph_dr, n_graph_layers):
@@ -44,8 +44,6 @@ class GraphDialog(tf.keras.Model):
         self.encoder_optimizer = tf.keras.optimizers.Adam(lr)
         self.extKnow_optimizer = tf.keras.optimizers.Adam(lr)
         self.decoder_optimizer = tf.keras.optimizers.Adam(lr)
-        # TODO: lr scheduler.
-
         self.train_loss = tf.keras.metrics.Mean('train_loss', dtype=tf.float32)
         self.train_loss_g = tf.keras.metrics.Mean('train_loss_global', dtype=tf.float32)
         self.train_loss_v = tf.keras.metrics.Mean('train_loss_vocab', dtype=tf.float32)
@@ -75,8 +73,8 @@ class GraphDialog(tf.keras.Model):
 
     def encode_and_decode(self, data, max_target_length, use_teacher_forcing,
                           get_decoded_words, training):
-        # build unknown mask for memory if training mode
-        if args['unk_mask'] and training:  # different: training flag need to be fed from outside explicitly.
+        # build unknown mask if training mode
+        if args['unk_mask'] and training:
             story_size = data[0].shape  # data[0]: context_arr.
             rand_mask = np.ones(story_size, dtype=np.float32)
             bi_mask = np.random.binomial([np.ones((story_size[0], story_size[1]), dtype=np.float32)],
@@ -85,16 +83,12 @@ class GraphDialog(tf.keras.Model):
             conv_rand_mask = np.ones(data[3].shape, dtype=np.float32)  # data[3]: conv_arr.
             for bi in range(story_size[0]):
                 start, end = data[13][bi] - 1, data[13][bi] - 1 + data[12][bi]  # data[13]: kb_arr_lengths, data[12]: conv_arr_lengths.
-                # start, end = data['kb_arr_lengths'][bi], data['kb_arr_lengths'][bi] + data['conv_arr_lengths'][bi]  # data[13]: kb_arr_lengths, data[12]: conv_arr_lengths.
-                # conv_rand_mask[:end.numpy()[0]-start.numpy()[0], bi, :] = rand_mask[bi, start.numpy()[0]:end.numpy()[0], :]  # necessary to explictly move data to cuda ?
-                conv_rand_mask[bi, :end-start, :] = rand_mask[bi, start:end, :]  # story_size dimension order is different from pytorch, so the slice index is different from pytorch one. necessary to explictly move data to cuda ?
+                conv_rand_mask[bi, :end-start, :] = rand_mask[bi, start:end, :]
             conv_story = data[3] * conv_rand_mask  # data[3]: conv_arr.
             story = data[0] * rand_mask  # data[0]: context_arr.
         else:
             story, conv_story = data[0], data[3]  # data[0]: context_arr, data[3]: conv_arr.
 
-        # encode dialogue history and KB to vectors
-        # TODO: need to check the shape and meaning of each tensor.
         dh_outputs, dh_hidden = self.encoder(conv_story, data[12], data[23], data[24], data[25], training=training)  # data[12]: conv_arr_lengths, data[23]: deps, data[24]: deps_type, data[25]: cell_masks.
         global_pointer, kb_readout, global_pointer_logits = self.extKnow.load_graph(story,
                                                                                     data[13],  # data[13]: kb_arr_lengths.
@@ -104,24 +98,17 @@ class GraphDialog(tf.keras.Model):
                                                                                     data[26],  # data[26]: adj.
                                                                                     training=training)
         encoded_hidden = tf.concat([dh_hidden, kb_readout], 1)
-        # encoded_hidden = dh_hidden
 
-        # get the words that can be copy from the memory
         batch_size = len(data[10])  # data[10]: context_arr_lengths.
         self.copy_list = []
-        # pdb.set_trace()
         for elm in data[7]:  # data[7]: context_arr_plain.
-            # elm_temp = [word_arr[0] for word_arr in elm]
             elm_temp = []
             for word_arr in elm:
-                # elm_temp.append(word_arr[0])
                 if word_arr[0].numpy().decode() != 'PAD':
                     elm_temp.append(word_arr[0].numpy().decode())
                 else:
-                #     self.copy_list.append(elm_temp)
                     break
             self.copy_list.append(elm_temp)
-        # pdb.set_trace()
         outputs_vocab, outputs_ptr, decoded_fine, decoded_coarse = self.decoder(self.extKnow,
                                                                                 story.shape,
                                                                                 data[10],  # data[10]: context_arr_lengths.
@@ -140,35 +127,23 @@ class GraphDialog(tf.keras.Model):
     @tf.function
     def train_batch(self, data, clip, reset=0):
         # model training process
-        # no need to zero gradients of optimizers in tensorflow
         # encode and decode
         with tf.GradientTape(persistent=True) as tape:
-            # pdb.set_trace()
             use_teacher_forcing = random.random() < args['teacher_forcing_ratio']
             max_target_length = max(data[11])  # data[11]: response_lengths.
-            # max_target_length = train_max_len_global
             all_decoder_outputs_vocab, all_decoder_outputs_ptr, _, _, global_pointer, global_pointer_logits = self.encode_and_decode(data,
                                                                                                               max_target_length,
                                                                                                               use_teacher_forcing,
                                                                                                               False,
                                                                                                               True)
             # loss calculation and backpropagation
-            # pdb.set_trace()
-            # loss_g = tf.cast(tf.compat.v1.losses.sigmoid_cross_entropy(data[5], tf.cast(global_pointer_logits, dtype=tf.double)), dtype=tf.float32)
             loss_g = tf.cast(tf.compat.v1.losses.sigmoid_cross_entropy(data[27], tf.cast(global_pointer_logits, dtype=tf.double)), dtype=tf.float32)
-            #loss_gs = tf.keras.backend.binary_crossentropy(tf.cast(data[5], dtype=tf.double), tf.cast(global_pointer, dtype=tf.double))
-            #loss_g = tf.cast(tf.reduce_sum(loss_gs) / (loss_gs.shape[0]*loss_gs.shape[1]), dtype=tf.float32)
-            # loss_g_mat = tf.nn.sigmoid_cross_entropy_with_logits(tf.cast(global_pointer, dtype=tf.double), data['selector_index'])  # data[5]: selector_index.
-            # loss_g = tf.cast(tf.reduce_sum(loss_g_mat) / (loss_g_mat.shape[0] * loss_g_mat.shape[1]), dtype=tf.float32)
-            # print("loss_g:", loss_g)
-            loss_v = masked_cross_entropy(tf.transpose(all_decoder_outputs_vocab, [1, 0, 2]),  # need to transpose ?
+            loss_v = masked_cross_entropy(tf.transpose(all_decoder_outputs_vocab, [1, 0, 2]),
                                           data[2],
                                           tf.cast(data[11], dtype=tf.int32))  # data[2]: skectch_response, data[11]: response_lengths.
-            # print("loss_v:", loss_v)
-            loss_l = masked_cross_entropy(tf.transpose(all_decoder_outputs_ptr, [1, 0, 2]),  # need to transpose ?
+            loss_l = masked_cross_entropy(tf.transpose(all_decoder_outputs_ptr, [1, 0, 2]),
                                           data[4],
                                           tf.cast(data[11], dtype=tf.int32))  # data[4]: ptr_index, data[11]: response_lengths.
-            # print("loss_l:", loss_l)
             loss = loss_g + loss_v + loss_l
 
         # compute gradients
@@ -183,9 +158,6 @@ class GraphDialog(tf.keras.Model):
         encoder_gradients, ec = tf.clip_by_global_norm(encoder_gradients, clip)
         extKnow_gradients, kc = tf.clip_by_global_norm(extKnow_gradients, clip)
         decoder_gradients, dc = tf.clip_by_global_norm(decoder_gradients, clip)
-        # clipped_encoder_gradients = [elem if isinstance(elem, ops.IndexedSlices) else tf.clip_by_norm(elem, clip) for elem in encoder_gradients]
-        # clipped_extKnow_gradients = [elem if isinstance(elem, ops.IndexedSlices) else tf.clip_by_norm(elem, clip) for elem in extKnow_gradients]
-        # clipped_decoder_gradients = [elem if isinstance(elem, ops.IndexedSlices) else tf.clip_by_norm(elem, clip) for elem in decoder_gradients]
 
         # apply update
         self.encoder_optimizer.apply_gradients(
@@ -207,9 +179,6 @@ class GraphDialog(tf.keras.Model):
 
     def evaluate(self, dev, dev_length, matric_best, early_stop=None):
         print('STARTING EVALUATION:')
-
-        # fd = open('test_result_{}.txt'.format(args['dataset']), 'a')
-
         ref, hyp = [], []
         acc, total = 0, 0
         dialog_acc_dict = {}
@@ -239,9 +208,6 @@ class GraphDialog(tf.keras.Model):
 
         for j, data_dev in pbar:
             # Encode and Decode
-            # pdb.set_trace()
-            # max_target_length = max(data_dev['response_lengths'])  # data[11]: response_lengths.
-            # max_target_length = dev_max_len_global
             _, _, decoded_fine, decoded_coarse, global_pointer, global_pointer_logits = self.encode_and_decode(data_dev,
                                                                                         self.max_resp_len,
                                                                                         False,
@@ -264,14 +230,9 @@ class GraphDialog(tf.keras.Model):
                         st_c += e + ' '
                 pred_sent = st.lstrip().rstrip()
                 pred_sent_coarse = st_c.lstrip().rstrip()
-                # pdb.set_trace()
                 gold_sent = data_dev[8][bi][0].numpy().decode().lstrip().rstrip()  # data[8]: response_plain.
                 ref.append(gold_sent)
                 hyp.append(pred_sent)
-
-                # fd.write("predict response: " + pred_sent + "\n")
-                # fd.write("golden  response: " + gold_sent + "\n")
-                # fd.write("\n")
 
                 if args['dataset'] == 'kvr':
                     # compute F1 SCORE
@@ -331,12 +292,8 @@ class GraphDialog(tf.keras.Model):
                 if args['genSample']:
                     self.print_examples(bi, data_dev, pred_sent, pred_sent_coarse, gold_sent)
 
-        # fd.close()
-
-        # pdb.set_trace()
         bleu_score = moses_multi_bleu(np.array(hyp), np.array(ref), lowercase=True)
         acc_score = acc / float(total)
-        # print("ACC SCORE:\t" + str(acc_score))
 
         if args['dataset'] == 'kvr':
             F1_score = F1_pred / float(F1_count)
@@ -377,15 +334,12 @@ class GraphDialog(tf.keras.Model):
             return acc_score
 
     def compute_prf(self, gold, pred, global_entity_list, kb_plain):
-        # local_kb_word = [k[0] for k in kb_plain]
-        # local_kb_word = [k[0] if k[0].decode() != '$' and k[0].decode() != 'PAD' for k in kb_plain]
         local_kb_word = []
         for k in kb_plain:
             if k[0].numpy().decode() != '$$$$' and k[0].numpy().decode() != 'PAD':
                 local_kb_word.append(k[0].numpy().decode())
             else:
                 break
-        # gold_decode = [ent.decode() if ent.decode() != 'PAD' for ent in gold]
         gold_decode = []
         for ent in gold:
             if ent.numpy().decode() != 'PAD':

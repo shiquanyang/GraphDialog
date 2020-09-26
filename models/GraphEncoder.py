@@ -21,22 +21,22 @@ class GraphEncoder(tf.keras.Model):
                                        use_bias=True,
                                        kernel_initializer=tf.initializers.RandomUniform(-(1/np.sqrt(2*hidden_size)),(1/np.sqrt(2*hidden_size))),
                                        bias_initializer=tf.initializers.RandomUniform(-(1/np.sqrt(2*hidden_size)),(1/np.sqrt(2*hidden_size)))
-                                       )  # different: bias should be explicitly assigned.
+                                       )
         self.W1 = tf.keras.layers.Dense(2*hidden_size,
                                        use_bias=True,
                                        kernel_initializer=tf.initializers.RandomUniform(-(1/np.sqrt(2*hidden_size)),(1/np.sqrt(2*hidden_size))),
                                        bias_initializer=tf.initializers.RandomUniform(-(1/np.sqrt(2*hidden_size)),(1/np.sqrt(2*hidden_size)))
-                                       )  # different: bias should be explicitly assigned.
+                                       )
         self.W2 = tf.keras.layers.Dense(4*hidden_size,
                                        use_bias=True,
                                        kernel_initializer=tf.initializers.RandomUniform(-(1/np.sqrt(2*hidden_size)),(1/np.sqrt(2*hidden_size))),
                                        bias_initializer=tf.initializers.RandomUniform(-(1/np.sqrt(2*hidden_size)),(1/np.sqrt(2*hidden_size)))
-                                       )  # different: bias should be explicitly assigned.
+                                       )
         self.W3 = tf.keras.layers.Dense(hidden_size,
                                        use_bias=True,
                                        kernel_initializer=tf.initializers.RandomUniform(-(1/np.sqrt(2*hidden_size)),(1/np.sqrt(2*hidden_size))),
                                        bias_initializer=tf.initializers.RandomUniform(-(1/np.sqrt(2*hidden_size)),(1/np.sqrt(2*hidden_size)))
-                                       )  # different: bias should be explicitly assigned.
+                                       )
         self.softmax = tf.keras.layers.Softmax(1)
         self.relu = tf.keras.layers.ReLU()
 
@@ -78,35 +78,7 @@ class GraphEncoder(tf.keras.Model):
                                                         tf.transpose(cell_mask, [1, 0, 2, 3]),
                                                         hidden,
                                                         training)  # outputs: batch_size*max_len*(2*embedding_dim)
-        # must do something here!!!
-        # outputs_sum = tf.reduce_sum(outputs, axis=1)  # outputs_sum: batch_size*(2*embedding_dim)
-        # outputs_avg = outputs_sum / tf.cast(tf.expand_dims(input_lengths, axis=1), dtype=tf.float32)  # outputs: batch_size*(2*embedding_dim)
-        # outputs: batch_size*max_len*(2*embedding_dim)
-        # outputs_temp = self.W1(self.relu(self.W2(outputs)))  # outputs_temp: batch_size*max_len*(2*embedding_dim)
-        # query_vector = tf.ones([batch_size, 2 * self.hidden_size])  # ones: batch_size*(2*embedding_dim)
-        # u = [query_vector]
-        # for i in range(args['maxhops']):
-        #     u_temp = tf.tile(tf.expand_dims(u[-1], axis=1), [1, max_len, 1])  # u_temp: batch_size*max_len*(2*embedding_dim)
-        #     prob_logits = tf.reduce_sum((outputs_temp * u_temp), axis=2)  # prob_logits: batch_size*max_len
-        #     prob_soft_list = []
-        #     for t in range(batch_size):
-        #         length = input_lengths[t]
-        #         k = tf.expand_dims(prob_logits[t, :length], axis=0)
-        #         prob_soft_t = self.softmax(k)  # prob_soft_t: 1*length
-        #         pad_soft_t = tf.zeros([1, max_len - length])  # pad_soft_t: 1*(max_len-length)
-        #         prob_soft_ = tf.concat([prob_soft_t, pad_soft_t], axis=1)  # prob_soft_new: 1*max_len
-        #         prob_soft_list.append(prob_soft_)
-        #     prob_soft = tf.squeeze(tf.stack(prob_soft_list, axis=0), axis=1)  # prob_soft: batch_size*max_len
-        #     # prob_soft = self.softmax(prob_logits)  # prob_soft: batch_size*max_len
-        #     prob_soft_temp = tf.tile(tf.expand_dims(prob_soft, axis=2), [1, 1, 2 * self.hidden_size])  # prob_soft_temp: batch_size*max_len*(2*embedding_dim)
-        #     u_k = u[-1] + tf.reduce_sum((outputs_temp * prob_soft_temp), axis=1)  # u_k: batch_size*(2*embedding_dim)
-        #     u.append(u_k)
-        # hidden_hat = tf.concat([hidden_f, hidden_b, u[-1]], 1)  # hidden_hat: batch_size*(2*embedding_dim)
-        # hidden = self.W3(hidden_hat)  # hidden: batch_size*embedding_dim
-        # outputs = self.W(outputs)  # outputs: batch_size*max_len*embedding_dim
-
         hidden_hat = tf.concat([hidden_f, hidden_b], 1)
-        hidden = self.W(hidden_hat)  # different: no unsqueeze(0).
-        # hidden = self.W(outputs_avg)
-        outputs = self.W(outputs)  # different: no need to transpose(0, 1) because the first dimension is already batch_size.
+        hidden = self.W(hidden_hat)
+        outputs = self.W(outputs)
         return outputs, hidden
