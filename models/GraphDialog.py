@@ -1,8 +1,6 @@
 import tensorflow as tf
 from utils.config import *
-from models.encoder import ContextRNN
 from models.GraphEncoder import GraphEncoder
-from models.ExternalKnowledge import ExternalKnowledge
 from models.KnowledgeGraph import KnowledgeGraph
 from models.decoder import Decoder
 import random
