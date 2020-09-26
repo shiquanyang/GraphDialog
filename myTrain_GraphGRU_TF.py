@@ -1,6 +1,5 @@
 from tqdm import tqdm
 from utils.config import *
-from models.GLMP import *
 from models.GraphDialog import *
 import datetime
 import os
