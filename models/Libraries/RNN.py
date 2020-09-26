@@ -4,7 +4,7 @@ from tensorflow.python.ops import array_ops
 from tensorflow.python.framework import dtypes as dtypes_module
 from tensorflow.python.ops import math_ops
 from tensorflow.python.framework import ops
-from models.Libraries.GraphGRUCell import GraphGRUCell
+from models.Libraries.GraphCell import GraphCell
 from tensorflow.python.keras.utils import generic_utils
 import numpy as np
 import pdb
@@ -40,7 +40,7 @@ class RNN(tf.keras.Model):
         self.time_major = time_major
         self.zero_output_for_mask = zero_output_for_mask
         self.supports_masking = True
-        self.cell = GraphGRUCell(units,
+        self.cell = GraphCell(units,
                                  input_dim,
                                  edge_types,
                                  shared_emb,
