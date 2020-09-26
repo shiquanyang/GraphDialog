@@ -16,7 +16,6 @@ import pdb
 class GLMPGraph(tf.keras.Model):
     def __init__(self, hidden_size, lang, max_resp_len, path, task, lr, n_layers, graph_hidden_size, nheads, alpha, dropout, graph_dr, n_graph_layers):
         super(GLMPGraph, self).__init__()
-        # self.name = 'GLMP'
         self.task = task
         self.input_size = lang.n_words
         self.output_size = lang.n_words
@@ -69,9 +68,9 @@ class GLMPGraph(tf.keras.Model):
         self.loss, self.print_every, self.loss_g, self.loss_v, self.loss_l = 0.0, 1.0, 0.0, 0.0, 0.0
 
     def save_model(self, dec_type):
-        name_data = "KVR/" if self.task=='' else "BABI/"
+        name_data = "MULTIWOZ/" if self.task=='multiwoz' else "KVR/"
         layer_info = str(self.n_layers)
-        directory = 'save/GLMP-'+args["addName"]+name_data+str(self.task)+'HDD'+\
+        directory = 'save/GraphDialog-'+args["addName"]+name_data+str(self.task)+'HDD'+\
                     str(self.hidden_size)+'BSZ'+str(args['batch'])+'DR'+str(self.dropout)+\
                     'L'+layer_info+'lr'+str(self.lr)+str(dec_type)
         if not os.path.exists(directory):
@@ -316,7 +315,7 @@ class GLMPGraph(tf.keras.Model):
         # pdb.set_trace()
         bleu_score = moses_multi_bleu(np.array(hyp), np.array(ref), lowercase=True)
         acc_score = acc / float(total)
-        print("ACC SCORE:\t" + str(acc_score))
+        # print("ACC SCORE:\t" + str(acc_score))
 
         if args['dataset'] == 'kvr':
             F1_score = F1_pred / float(F1_count)
@@ -330,7 +329,7 @@ class GLMPGraph(tf.keras.Model):
             for k in dialog_acc_dict.keys():
                 if len(dialog_acc_dict[k]) == sum(dialog_acc_dict[k]):
                     dia_acc += 1
-            print("Dialog Accuracy:\t" + str(dia_acc * 1.0 / len(dialog_acc_dict.keys())))
+            # print("Dialog Accuracy:\t" + str(dia_acc * 1.0 / len(dialog_acc_dict.keys())))
 
         if (early_stop == 'BLEU'):
             # if (bleu_score >= matric_best):

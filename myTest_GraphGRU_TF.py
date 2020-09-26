@@ -21,7 +21,7 @@ HDD = directory[2].split('HDD')[1].split('BSZ')[0]
 L = directory[2].split('L')[1].split('lr')[0].split("-")[0]
 decoder = directory[1].split('-')[0]
 BSZ =  int(directory[2].split('BSZ')[1].split('DR')[0])
-DS = 'kvr' if 'kvr' in directory[1].split('-')[1].lower() else 'babi'
+DS = 'multiwoz' if 'multiwoz' in directory[1].split('-')[1].lower() else 'kvr'
 
 early_stop = args['earlyStop']
 if DS=='kvr':
