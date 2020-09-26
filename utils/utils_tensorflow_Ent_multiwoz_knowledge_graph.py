@@ -406,9 +406,9 @@ def text_to_sequence(pairs, lang):
 
 
 def prepare_data_seq(task, batch_size=100):
-    file_train = 'data/MULTIWOZ2.1/{}train_transformed.txt'.format(task)
-    file_dev = 'data/MULTIWOZ2.1/{}valid_transformed.txt'.format(task)
-    file_test = 'data/MULTIWOZ2.1/{}test_transformed.txt'.format(task)
+    file_train = 'data/MULTIWOZ2.1/{}train_graph.txt'.format(task)
+    file_dev = 'data/MULTIWOZ2.1/{}valid_graph.txt'.format(task)
+    file_test = 'data/MULTIWOZ2.1/{}test_graph.txt'.format(task)
 
     pair_train, train_max_len = read_langs(file_train, max_line=None)
     pair_dev, dev_max_len = read_langs(file_dev, max_line=None)
