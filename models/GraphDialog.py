@@ -56,12 +56,8 @@ class GraphDialog(tf.keras.Model):
 
     def print_loss(self):
         print_loss_avg = self.loss / self.print_every
-        print_loss_g = self.loss_g / self.print_every
-        print_loss_v = self.loss_v / self.print_every
-        print_loss_l = self.loss_l / self.print_every
         self.print_every += 1
-        return 'L:{:.2f}, LE:{:.2f}, LG:{:.2f}, LP:{:.2f}'.format(
-            print_loss_avg, print_loss_g, print_loss_v, print_loss_l)
+        return 'L:{:.2f}'.format(print_loss_avg)
 
     def reset(self):
         self.loss, self.print_every, self.loss_g, self.loss_v, self.loss_l = 0.0, 1.0, 0.0, 0.0, 0.0
@@ -175,7 +171,7 @@ class GraphDialog(tf.keras.Model):
             # print("loss_l:", loss_l)
             loss = loss_g + loss_v + loss_l
 
-        # compute gradients for encoder, decoder and external knowledge
+        # compute gradients
         encoder_variables = self.encoder.trainable_variables
         extKnow_variables = self.extKnow.trainable_variables
         decoder_variables = self.decoder.trainable_variables
