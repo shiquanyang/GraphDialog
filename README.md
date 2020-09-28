@@ -8,7 +8,7 @@ This code has been written using Tensorflow >= 2.0.0. Please make sure that you 
 ## Architecture
 <table>
     <tr>
-        <td ><center><img src="img/Encoder_0426.png"> </center></td>
+        <td ><center><img src="img/Encoder.png"> </center></td>
         <td ><center><img src="img/GraphCell.png"> </center></td>
     </tr>
 </table>
