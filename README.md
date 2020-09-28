@@ -9,13 +9,13 @@ This code has been written using Tensorflow >= 2.0.0. If you find the source cod
 </pre>
 
 ## Architecture
-<p align="left">
-<img src="img/Encoder_0426.png" width="50%" />
-</p>
+<table>
+    <tr>
+        <td ><center><img src="img/Encoder_0426.png" > </center></td>
+        <td ><center><img src="img/GraphCell.png"  > </center></td>
+    </tr>
+</table>
 
-<p align="right">
-<img src="img/GraphCell.png" width="50%" />
-</p>
 
 ## Dependencies
 * Tensorflow >= 2.0.0
@@ -24,6 +24,8 @@ This code has been written using Tensorflow >= 2.0.0. If you find the source cod
 * cudnn 7.6.0
 * tqdm 4.36.1
 * nltk 3.4.5
+* numpy 1.17.2
+* python 3.7.4
 
 
 ## Training
