@@ -63,7 +63,7 @@ class GraphDialog(tf.keras.Model):
     def save_model(self, dec_type):
         name_data = "MULTIWOZ/" if self.task=='multiwoz' else "KVR/"
         layer_info = str(self.n_layers)
-        directory = 'save/GraphDialog-'+args["addName"]+name_data+str(self.task)+'HDD'+\
+        directory = 'save/GraphDialog-'+args["addName"]+name_data+str(self.task).upper()+'HDD'+\
                     str(self.hidden_size)+'BSZ'+str(args['batch'])+'DR'+str(self.dropout)+\
                     'L'+layer_info+'lr'+str(self.lr)+str(dec_type)
         if not os.path.exists(directory):
