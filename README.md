@@ -11,8 +11,8 @@ This code has been written using Tensorflow >= 2.0.0. If you find the source cod
 ## Architecture
 <table>
     <tr>
-        <td ><center><img src="img/Encoder_0426.png" >图1  新垣结衣1 </center></td>
-        <td ><center><img src="img/GraphCell.png"  >图2 新垣结衣1</center></td>
+        <td ><center><img src="img/Encoder_0426.png" > </center></td>
+        <td ><center><img src="img/GraphCell.png"  > </center></td>
     </tr>
 </table>
 
