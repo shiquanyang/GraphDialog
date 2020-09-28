@@ -25,27 +25,27 @@ This code has been written using Tensorflow >= 2.0.0. Please make sure you have 
 * python 3.7.4
 
 
-## Training
+## Model Training
 We created `myTrain.py` to train the models. You can run:
 ```console
 python myTrain.py -lr=0.001 -hdd=128 -dr=0.2 -bsz=128 -ds=multiwoz -maxdeps=7 -revgraph=0 -graphhdd=128 -nheads=1 -l=1 -graph_dr=0.2 -graph_layer=1
 ```
 While training, the model with the best validation results is stored. If you want to reuse a model, please add `-path=path_name_model` to the call. The model is evaluated by BLEU and Entity F1.
 
-## Testing
+## Model Testing
 We created `myTest.py` to restore the checkpoints and test the models. You can run:
 ```console
 python myTest.py -ds=multiwoz -path=<path_to_saved_model>
 ```
 
-## Reproducing
+## Reproducibility
 We've attached the checkpoints to facilitate the reproduction of the results in the paper.
 You can run:
 ```console
 python myTest.py -path=save/GraphDialog-MULTIWOZ/multiwozHDD128BSZ128DR0.2L1lr0.001ENTF1-0.1513/ckpt-9 -ds=multiwoz
 ```
 
-## Citing
+## Citation
 If you find the source codes or the datasets included in this toolkit useful to your work, please kindly consider citing our paper. The bibtex is listed below:
 <pre>
 
