@@ -39,17 +39,14 @@ python myTest.py -ds=multiwoz -path=<path_to_saved_model>
 ```
 
 ## Reproducing
-We've attached the checkpoints to facilitate the reproduction of the results in the paper. The model is stored in the following folder:
-```console
-save/GraphDialog-MultiWOZ/
-```
+We've attached the checkpoints to facilitate the reproduction of the results in the paper.
 You can run:
 ```console
-python myTest.py -path=save/GraphDialog-MultiWOZ/xxx/ckpt-xx -ds=multiwoz
+python myTest.py -path=save/GraphDialog-MULTIWOZ/multiwozHDD128BSZ128DR0.2L1lr0.001ENTF1-0.1513/ckpt-9 -ds=multiwoz
 ```
 
 ## Citing
-If you find the source codes or the datasets included in this toolkit useful for your work, please kindly consider citing our paper. The bibtex is listed below:
+If you find the source codes or the datasets included in this toolkit useful to your work, please kindly consider citing our paper. The bibtex is listed below:
 <pre>
 
 </pre>
