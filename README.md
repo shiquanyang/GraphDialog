@@ -9,7 +9,7 @@ This code has been written using Tensorflow >= 2.0.0. Please make sure that you 
 <table>
     <tr>
         <td ><center><img src="img/Encoder_0426.png" width="2000"> </center></td>
-        <td ><center><img src="img/GraphCell_new.png"> </center></td>
+        <td ><center><img src="img/GraphCell.png"> </center></td>
     </tr>
 </table>
 
