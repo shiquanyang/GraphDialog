@@ -9,7 +9,7 @@ This code has been written using Tensorflow >= 2.0.0. Please make sure that you 
 <table>
     <tr>
         <td ><center><img src="img/Encoder_0426.png" > </center></td>
-        <td ><center><img src="img/GraphCell.png"  > </center></td>
+        <td ><center><img src="img/GraphCell_new.png"  > </center></td>
     </tr>
 </table>
 
@@ -28,7 +28,7 @@ This code has been written using Tensorflow >= 2.0.0. Please make sure that you 
 ## Model Training
 We created `myTrain.py` to train the models. You can run:
 ```console
-python myTrain.py -lr=0.001 -hdd=128 -dr=0.2 -bsz=128 -l=1 -ds=multiwoz -maxdeps=7 -revgraph=0
+python myTrain.py -maxdeps=7 -revgraph=0 -lr=0.001 -hdd=128 -dr=0.2 -bsz=128 -l=1 -ds=multiwoz
 ```
 While training, the model with the best validation results is stored. If you want to reuse a model, please add `-path=path_name_model` to the call. The model is evaluated by BLEU and Entity F1.
 
