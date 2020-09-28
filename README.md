@@ -9,10 +9,10 @@ This code has been written using Tensorflow >= 2.0.0. If you find the source cod
 </pre>
 
 ## Architecture
-<figure class="half">
-    <img src="img/Encoder_0426.png">
-    <img src="img/GraphCell.png">
-</figure>
+<center class="half">
+    <img src="img/Encoder_0426.png" width="300"/>
+    <img src="img/GraphCell.png" width="300"/>
+</center>
 
 
 ## Dependencies
