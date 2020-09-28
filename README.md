@@ -9,9 +9,12 @@ This code has been written using Tensorflow >= 2.0.0. If you find the source cod
 </pre>
 
 ## Architecture
-<center class="half">
-    <img src="img/Encoder_0426.png" width="300"/><img src="img/GraphCell.png" width="300"/>
-</center>
+<table>
+    <tr>
+        <td ><center><img src="img/Encoder_0426.png" >图1  新垣结衣1 </center></td>
+        <td ><center><img src="img/GraphCell.png"  >图2 新垣结衣1</center></td>
+    </tr>
+</table>
 
 
 ## Dependencies
