@@ -14,7 +14,6 @@ def read_langs(file_name, max_line=None):
     data, context_arr, conv_arr, kb_arr, conv_arr_plain = [], [], [], [], []
     node2id, neighbors_info = {}, {}
     node_cnt = 0
-    # path_len_dict = {}
     max_resp_len = 0
     total_node_cnt, total_dep_cnt = 0, 0
 
@@ -40,7 +39,7 @@ def read_langs(file_name, max_line=None):
                     conv_arr += gen_u
                     conv_arr_plain.append(u)
 
-                    # Get gold entity for each domain
+                    # Get gold entity
                     gold_ent = ast.literal_eval(gold_ent)
                     ent_idx_cal, ent_idx_nav, ent_idx_wet = [], [], []
                     ent_idx_restaurant, ent_idx_hotel, ent_idx_attraction, ent_idx_train, ent_idx_hospital = [], [], [], [], []
@@ -139,11 +138,7 @@ def read_langs(file_name, max_line=None):
                             for ent in entities:
                                 if ent not in entity_list:
                                     entity_list.append(ent)
-                    # If it's the head's entity, Then label 1, Else label 0.
-                    # head_pointer = [1 if word_arr[0] in entity_list and set(final_list).intersection(set(word_arr)) != set([]) and '$u' not in word_arr and '$s' not in word_arr else 0 for word_arr in context_arr] + [0]
                     head_pointer = [1 if ((word_arr[0] in entity_list and set(final_list).intersection(set(word_arr)) != set([]) and '$u' not in word_arr and '$s' not in word_arr) or (word_arr[0] in r.split() and word_arr[0] in ent_index and ('$u' in word_arr or '$s' in word_arr))) else 0 for word_arr in context_arr] + [1]
-
-                    # Get local pointer position for each word in system response
                     ptr_index = []
                     a = 0
                     b = 0
@@ -155,14 +150,11 @@ def read_langs(file_name, max_line=None):
                         else:
                             index = len(context_arr)
                         ptr_index.append(index)
-
-                    # Get global pointer labels for words in system response, the 1 in the end is for the NULL token
                     selector_index = [1 if (word_arr[0] in ent_index or word_arr[0] in r.split()) else 0 for word_arr in
                                       context_arr] + [1]
-
                     sketch_response = generate_template(global_entity, r, gold_ent, kb_arr, task_type)
 
-                    # Get Document Graph
+                    # Document Graph
                     dep_info, dep_info_hat, max_len = dependency_parsing(conv_arr_plain)
                     dep_node_info, dep_relation_info, cell_mask, all_cnt, path_len_info = generate_subgraph(
                         dep_info_hat,
@@ -177,27 +169,8 @@ def read_langs(file_name, max_line=None):
                     masks = [cell_mask, cell_mask_reverse]
                     total_node_cnt = total_node_cnt + max_len
                     total_dep_cnt = total_dep_cnt + all_cnt + all_cnt_reverse
-                    # analysis path length information
-                    # for ts in path_len_info:
-                    #     for ele in ts:
-                    #         if ele == 0:
-                    #             continue
-                    #         else:
-                    #             if ele not in path_len_dict.keys():
-                    #                 path_len_dict[ele] = 1
-                    #             else:
-                    #                 path_len_dict[ele] += 1
-                    # for ts in path_len_info_reverse:
-                    #     for ele in ts:
-                    #         if ele == 0:
-                    #             continue
-                    #         else:
-                    #             if ele not in path_len_dict.keys():
-                    #                 path_len_dict[ele] = 1
-                    #             else:
-                    #                 path_len_dict[ele] += 1
 
-                    # generate adjacent matrix
+                    # Adjacent Matrix
                     adj = np.eye(len(context_arr) + 1)
                     for node in neighbors_info.keys():
                         neighbor = neighbors_info[node]
@@ -245,7 +218,6 @@ def read_langs(file_name, max_line=None):
                     sample_counter += 1
                 else:
                     # deal with knowledge graph
-                    # r = line
                     nid, node, neighbors = line.split('|')
                     r = node.lstrip('[').rstrip(']')
                     kb_info = generate_memory(r, "", str(nid))
@@ -409,13 +381,12 @@ def prepare_data_seq(task, batch_size=100):
     file_train = 'data/MULTIWOZ2.1/train_graph.txt'
     file_dev = 'data/MULTIWOZ2.1/valid_graph.txt'
     file_test = 'data/MULTIWOZ2.1/test_graph.txt'
-
     pair_train, train_max_len = read_langs(file_train, max_line=None)
     pair_dev, dev_max_len = read_langs(file_dev, max_line=None)
     pair_test, test_max_len = read_langs(file_test, max_line=None)
     max_resp_len = max(train_max_len, dev_max_len, test_max_len) + 1
 
-    # build lang (1.0, 2.0, 3.0)
+    # build lang
     lang = build_lang(pair_train, True)
 
     # output edge-type dict
@@ -425,7 +396,7 @@ def prepare_data_seq(task, batch_size=100):
     #     for key in sorted_dict:
     #         f.write("%s\t%s\n"%(key[0], key[1]))
 
-    # map word to ids (1.0, 2.0, 3.0)
+    # map word to ids
     train_seq = text_to_sequence(pair_train, lang)
     dev_seq = text_to_sequence(pair_dev, lang)
     test_seq = text_to_sequence(pair_test, lang)
