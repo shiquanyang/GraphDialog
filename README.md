@@ -10,8 +10,7 @@ This code has been written using Tensorflow >= 2.0.0. If you find the source cod
 
 ## Architecture
 <center class="half">
-    <img src="img/Encoder_0426.png" width="300"/>
-    <img src="img/GraphCell.png" width="300"/>
+    <img src="img/Encoder_0426.png" width="300"/><img src="img/GraphCell.png" width="300"/>
 </center>
 
 
