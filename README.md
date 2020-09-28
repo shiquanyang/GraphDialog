@@ -3,10 +3,7 @@
 This is the Tensorflow implementation of the paper:
 **GraphDialog: Integrating Graph Knowledge into End-to-End Task-Oriented Dialogue Systems**. ***EMNLP 2020***. 
 
-This code has been written using Tensorflow >= 2.0.0. If you find the source codes or the datasets included in this toolkit useful for your work, please kindly consider citing our paper. The bibtex is listed below:
-<pre>
-
-</pre>
+This code has been written using Tensorflow >= 2.0.0. Please make sure you have installed all the dependencies listed below to run the code.
 
 ## Architecture
 <table>
@@ -51,6 +48,8 @@ You can run:
 python myTest.py -path=save/GraphDialog-MultiWOZ/xxx/ckpt-xx -ds=multiwoz
 ```
 
-## Issues
-IF you have any questions, please contact us either in email or through the issues on github. We are happy to help!
+## Citing
+If you find the source codes or the datasets included in this toolkit useful for your work, please kindly consider citing our paper. The bibtex is listed below:
+<pre>
 
+</pre>
