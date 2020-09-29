@@ -53,7 +53,7 @@ print(str(args))
 print("USE_CUDA: "+str(USE_CUDA))
 
 LIMIT = int(args["limit"]) 
-MEM_TOKEN_SIZE = 6 if args["dataset"] == 'kvr' and args["dataset"] == "multiwoz" else 4
+MEM_TOKEN_SIZE = 6 if args["dataset"] == 'kvr' or args["dataset"] == "multiwoz" else 4
 MAX_DEPENDENCIES_PER_NODE = args['max_deps']
 
 if args["ablationG"]: args["addName"] += "ABG"
