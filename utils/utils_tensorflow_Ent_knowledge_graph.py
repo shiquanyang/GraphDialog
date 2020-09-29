@@ -311,6 +311,8 @@ def preprocess(sequence, word2id, trg=True):
         story = tf.convert_to_tensor(story)
     except:
         print(sequence)
+        print(story)
+        exit(-1)
     return story
 
 
