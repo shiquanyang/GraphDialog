@@ -307,12 +307,7 @@ def preprocess(sequence, word2id, trg=True):
             for ii, word in enumerate(word_triple):
                 temp = word2id[word] if word in word2id else UNK_token
                 story[i].append(temp)
-    try:
-        story = tf.convert_to_tensor(story)
-    except:
-        print(sequence)
-        print(story)
-        exit(-1)
+    story = tf.convert_to_tensor(story)
     return story
 
 
