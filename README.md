@@ -14,7 +14,7 @@ This code has been written using Tensorflow >= 2.0.0. Please make sure that you 
 </table>
 
 
-## Dependencies
+## Requirements
 * Tensorflow >= 2.0.0
 * Spacy 2.2.1
 * cudatoolkit 10.0.130
@@ -25,14 +25,14 @@ This code has been written using Tensorflow >= 2.0.0. Please make sure that you 
 * python 3.7.4
 
 
-## Model Training
+## Training
 We created `myTrain.py` to train the models. You can run:
 ```console
 python myTrain.py -maxdeps=7 -revgraph=0 -lr=0.001 -hdd=128 -dr=0.2 -bsz=128 -l=1 -ds=multiwoz
 ```
 While training, the model with the best validation results is stored. If you want to reuse a model, please add `-path=path_name_model` to the call. The model is evaluated by BLEU and Entity F1.
 
-## Model Testing
+## Evaluation
 We created `myTest.py` to restore the checkpoints and test the models. You can run:
 ```console
 python myTest.py -ds=<dataset_name> -path=<path_to_saved_model>
@@ -45,7 +45,7 @@ You can run:
 python myTest.py -path=save/GraphDialog-MULTIWOZ/multiwozHDD128BSZ128DR0.2L1lr0.001ENTF1-0.1513/ckpt-9 -ds=multiwoz
 ```
 
-## Citation
+## Bibtex
 If you find the source codes or the datasets included in this toolkit useful to your work, please kindly consider citing our paper. The bibtex is listed below:
 <pre>
 
