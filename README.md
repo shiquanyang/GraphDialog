@@ -3,7 +3,10 @@
 This is the Tensorflow implementation of the paper:
 **GraphDialog: Integrating Graph Knowledge into End-to-End Task-Oriented Dialogue Systems**. ***EMNLP 2020***. 
 
-This code has been written using Tensorflow >= 2.0.0. Please make sure that you have installed all the necessary dependencies according to the dependency list below to successfully run this software.
+This code has been written using Tensorflow >= 2.0.0. If you find the source codes or the datasets included in this toolkit useful to your work, please kindly consider citing our paper. The bibtex is listed below:
+<pre>
+
+</pre>
 
 ## Architecture
 <table>
@@ -38,15 +41,6 @@ We created `myTest.py` to restore the checkpoints and test the models. You can r
 python myTest.py -ds=<dataset_name> -path=<path_to_saved_model>
 ```
 
-## Reproducibility
-We've attached the checkpoints to facilitate the reproduction of the results in the paper.
-You can run:
-```console
-python myTest.py -path=save/GraphDialog-MULTIWOZ/multiwozHDD128BSZ128DR0.2L1lr0.001ENTF1-0.1513/ckpt-9 -ds=multiwoz
-```
 
-## Bibtex
-If you find the source codes or the datasets included in this toolkit useful to your work, please kindly consider citing our paper. The bibtex is listed below:
-<pre>
-
-</pre>
+## Others
+If you have any questions, please feel free to send us emails (shiquan@student.unimelb.edu.au). We are happy to help you!
