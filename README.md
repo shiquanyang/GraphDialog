@@ -43,4 +43,4 @@ python myTest.py -ds=<dataset_name> -path=<path_to_saved_model>
 
 
 ## Others
-If you have any questions, please feel free to send us emails (shiquan@student.unimelb.edu.au). We are happy to help you!
+If you have any questions, please feel free to send us emails (shiquan@student.unimelb.edu.au). We are happy to help you:smile:!
