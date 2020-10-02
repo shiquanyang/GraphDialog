@@ -1,4 +1,4 @@
-## GraphDialog
+## :star2:GraphDialog
 
 This is the Tensorflow implementation of the paper:
 **GraphDialog: Integrating Graph Knowledge into End-to-End Task-Oriented Dialogue Systems**. ***EMNLP 2020***. 
@@ -35,7 +35,7 @@ python myTrain.py -maxdeps=7 -revgraph=0 -lr=0.001 -hdd=128 -dr=0.2 -bsz=128 -l=
 ```
 While training, the model with the best validation results is stored. If you want to reuse a model, please add `-path=path_name_model` to the call. The model is evaluated by BLEU and Entity F1.
 
-## :smile:Evaluation
+## :blush:Evaluation
 We created `myTest.py` to restore the checkpoints and test the models. You can run:
 ```console
 python myTest.py -ds=<dataset_name> -path=<path_to_saved_model>
