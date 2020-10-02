@@ -144,7 +144,7 @@ class GraphDialog(tf.keras.Model):
             loss_l = masked_cross_entropy(tf.transpose(all_decoder_outputs_ptr, [1, 0, 2]),
                                           data[4],
                                           tf.cast(data[11], dtype=tf.int32))  # data[4]: ptr_index, data[11]: response_lengths.
-            loss = loss_g + loss_v + 3 * loss_l
+            loss = loss_g + loss_v + loss_l
 
         # compute gradients
         encoder_variables = self.encoder.trainable_variables
