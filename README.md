@@ -3,7 +3,7 @@
 This is the Tensorflow implementation of the paper:
 **GraphDialog: Integrating Graph Knowledge into End-to-End Task-Oriented Dialogue Systems**. ***EMNLP 2020***. 
 
-This code has been written using Tensorflow >= 2.0.0. If you find the source codes or the datasets included in this software useful for your work, please kindly consider citing our paper. The bibtex is listed below:
+This code has been written using Tensorflow >= 2.0.0. If you find the source codes or the datasets included in this software useful to your work, please kindly consider citing our paper. The bibtex is listed below:
 <pre>
 
 </pre>
