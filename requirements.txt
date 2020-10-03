@@ -6,3 +6,6 @@ tqdm
 scikit-learn
 scipy
 sklearn
+pytest
+pytest-xdist
+pytest-forked
