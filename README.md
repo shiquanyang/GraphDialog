@@ -1,4 +1,4 @@
-## :star2:GraphDialog
+## GraphDialog
 
 This is the Tensorflow implementation of the paper:
 **GraphDialog: Integrating Graph Knowledge into End-to-End Task-Oriented Dialogue Systems**. ***EMNLP 2020***. 
