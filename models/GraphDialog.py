@@ -137,7 +137,8 @@ class GraphDialog(tf.keras.Model):
                                                                                                               False,
                                                                                                               True)
             # loss calculation and backpropagation
-            loss_g = tf.cast(tf.compat.v1.losses.sigmoid_cross_entropy(data[27], tf.cast(global_pointer_logits, dtype=tf.double)), dtype=tf.float32)
+            # loss_g = tf.cast(tf.compat.v1.losses.sigmoid_cross_entropy(data[27], tf.cast(global_pointer_logits, dtype=tf.double)), dtype=tf.float32)
+            loss_g = tf.cast(tf.compat.v1.losses.sigmoid_cross_entropy(data[5], tf.cast(global_pointer_logits, dtype=tf.double)), dtype=tf.float32)
             loss_v = masked_cross_entropy(tf.transpose(all_decoder_outputs_vocab, [1, 0, 2]),
                                           data[2],
                                           tf.cast(data[11], dtype=tf.int32))  # data[2]: skectch_response, data[11]: response_lengths.
