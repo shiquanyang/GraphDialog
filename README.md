@@ -11,8 +11,8 @@ This code has been written using Tensorflow >= 2.0.0. If you find the source cod
 ## :sparkles:Architecture
 <table>
     <tr>
-        <td ><center><img src="img/Encoder_new.png" width="500"> </center></td>
-        <td ><center><img src="img/GraphCell_new.png" width="500"> </center></td>
+        <td ><center><img src="img/Encoder_new.jpg" width="500"> </center></td>
+        <td ><center><img src="img/GraphCell_new.jpg" width="500"> </center></td>
     </tr>
 </table>
 
