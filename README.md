@@ -8,7 +8,7 @@ This code has been written using Tensorflow >= 2.0.0. If you find the source cod
 
 </pre>
 
-## :sparkles:Architecture
+## :star2:Architecture
 <table>
     <tr>
         <td ><center><img src="img/Encoder.png" width="500"> </center></td>
@@ -17,7 +17,7 @@ This code has been written using Tensorflow >= 2.0.0. If you find the source cod
 </table>
 
 
-## :star2:Requirements
+## :sparkles:Requirements
 * Tensorflow >= 2.0.0
 * Spacy 2.2.1
 * cudatoolkit 10.0.130
