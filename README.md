@@ -1,14 +1,14 @@
-## :star2:GraphDialog
+## GraphDialog
 
 This is the Tensorflow implementation of the paper:
 **GraphDialog: Integrating Graph Knowledge into End-to-End Task-Oriented Dialogue Systems**. ***EMNLP 2020***. 
 
-This code has been written using Tensorflow >= 2.0.0. If you find the source codes or the datasets included in this software useful to your work, please kindly consider citing our paper. The bibtex is listed below:
+This code has been written using Tensorflow >= 2.0.0. If you find the source codes or the datasets included in this software useful to your work, please consider citing our paper. The bibtex is:
 <pre>
 
 </pre>
 
-## :sparkles:Architecture
+## Architecture
 <table>
     <tr>
         <td ><center><img src="img/Encoder.png" width="500"> </center></td>
@@ -17,7 +17,7 @@ This code has been written using Tensorflow >= 2.0.0. If you find the source cod
 </table>
 
 
-## :star2:Requirements
+## Requirements
 * Tensorflow >= 2.0.0
 * Spacy 2.2.1
 * cudatoolkit 10.0.130
@@ -28,19 +28,19 @@ This code has been written using Tensorflow >= 2.0.0. If you find the source cod
 * python 3.7.4
 
 
-## :blush:Training
+## Training
 We created `myTrain.py` to train the models. You can run:
 ```console
 python myTrain.py -maxdeps=7 -revgraph=0 -lr=0.001 -hdd=128 -dr=0.2 -bsz=128 -l=1 -ds=multiwoz
 ```
 While training, the model with the best validation results is stored. If you want to reuse a model, please add `-path=path_name_model` to the call. The model is evaluated by BLEU and Entity F1.
 
-## :blush:Evaluation
+## Evaluation
 We created `myTest.py` to restore the checkpoints and test the models. You can run:
 ```console
 python myTest.py -ds=<dataset_name> -path=<path_to_saved_model>
 ```
 
 
-## :smiley:Others
-If you have any questions, please feel free to send us emails (shiquan@student.unimelb.edu.au). We are happy to help you:sparkling_heart:!
+## Others
+If you have any questions, please feel free to send us emails (shiquan@student.unimelb.edu.au). We are happy to help you:blush: !

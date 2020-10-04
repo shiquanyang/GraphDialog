@@ -1,0 +1,11 @@
+tensorflow
+spacy
+nltk
+numpy
+tqdm
+scikit-learn
+scipy
+sklearn
+pytest
+pytest-xdist
+pytest-forked
