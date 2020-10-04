@@ -35,10 +35,18 @@ python myTrain.py -maxdeps=7 -revgraph=0 -lr=0.001 -hdd=128 -dr=0.2 -bsz=128 -l=
 ```
 While training, the model with the best validation results is stored. If you want to reuse a model, please add `-path=path_name_model` to the call. The model is evaluated by BLEU and Entity F1.
 
+
 ## Evaluation
 We created `myTest.py` to restore the checkpoints and test the models. You can run:
 ```console
 python myTest.py -ds=<dataset_name> -path=<path_to_saved_model>
+```
+
+## Reproducibility
+We've attached the checkpoints to facilitate the reproduction of the results in the paper.
+You can run:
+```console
+python myTest.py -path=save/GraphDialog-MULTIWOZ/multiwozHDD128BSZ128DR0.2L1lr0.001ENTF1-0.1513/ckpt-9 -ds=multiwoz -maxdeps=7 -graphhdd=128 -nheads=1 -graph_layer=1
 ```
 
 
