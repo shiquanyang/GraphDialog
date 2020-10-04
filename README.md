@@ -44,7 +44,7 @@ python myTest.py -ds=<dataset_name> -path=<path_to_saved_model>
 
 ## Reproducibility
 We've attached the checkpoints to facilitate the reproduction of the results in the paper.
-You can run:
+For example, you can run:
 ```console
 python myTest.py -path=save/GraphDialog-MULTIWOZ/multiwozHDD128BSZ128DR0.2L1lr0.001ENTF1-0.1513/ckpt-9 -ds=multiwoz -maxdeps=7 -graphhdd=128 -nheads=1 -graph_layer=1
 ```
