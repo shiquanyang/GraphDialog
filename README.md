@@ -43,11 +43,11 @@ While training, the model with the best validation results is stored. If you wan
 ## Evaluation
 We created `myTest.py` to restore the checkpoints and test the models. For SMD dataset, you can run:
 ```console
-python myTest.py -ds=<dataset_name> -path=<path_to_saved_model> -ds=kvr -maxdeps=5 -graphhdd=128 -nheads=1 -rec=1 -graph_layer=1
+python myTest.py -path=<path_to_saved_model> -ds=kvr -maxdeps=5 -graphhdd=128 -nheads=1 -rec=1 -graph_layer=1
 ```
 For MultiWOZ 2.1 dataset, you can run:
 ```console
-python myTest.py -ds=<dataset_name> -path=<path_to_saved_model> -ds=multiwoz -maxdeps=5 -graphhdd=128 -nheads=1 -graph_layer=1
+python myTest.py -path=<path_to_saved_model> -ds=multiwoz -maxdeps=5 -graphhdd=128 -nheads=1 -graph_layer=1
 ```
 
 ## Reproducibility
