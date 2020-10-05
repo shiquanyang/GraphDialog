@@ -29,17 +29,25 @@ This code has been written using Tensorflow >= 2.0.0. If you find the source cod
 
 
 ## Training
-We created `myTrain.py` to train the models. You can run:
+We created `myTrain.py` to train the models. For SMD dataset, you can run:
 ```console
-python myTrain.py -maxdeps=7 -revgraph=0 -lr=0.001 -hdd=128 -dr=0.2 -bsz=128 -l=1 -ds=multiwoz
+python myTrain.py -maxdeps=5 -revgraph=0 -lr=0.001 -hdd=128 -dr=0.2 -bsz=32 -l=1 -ds=kvr
+```
+For MultiWOZ 2.1 dataset, you can run:
+```console
+python myTrain.py -maxdeps=5 -revgraph=0 -lr=0.001 -hdd=128 -dr=0.2 -bsz=128 -l=1 -ds=multiwoz
 ```
 While training, the model with the best validation results is stored. If you want to reuse a model, please add `-path=path_name_model` to the call. The model is evaluated by BLEU and Entity F1.
 
 
 ## Evaluation
-We created `myTest.py` to restore the checkpoints and test the models. You can run:
+We created `myTest.py` to restore the checkpoints and test the models. For SMD dataset, you can run:
 ```console
-python myTest.py -ds=<dataset_name> -path=<path_to_saved_model>
+python myTest.py -ds=<dataset_name> -path=<path_to_saved_model> -ds=kvr -rec=1 -maxdeps=5 -graphhdd=128 -nheads=1 -graph_layer=1
+```
+For MultiWOZ 2.1 dataset, you can run:
+```console
+python myTest.py -ds=<dataset_name> -path=<path_to_saved_model> -ds=multiwoz -rec=1 -maxdeps=5 -graphhdd=128 -nheads=1 -graph_layer=1
 ```
 
 ## Reproducibility
@@ -48,7 +56,6 @@ For example, you can run:
 ```console
 python myTest.py -path=save/GraphDialog-MULTIWOZ/multiwozHDD128BSZ128DR0.2L1lr0.001ENTF1-0.1513/ckpt-9 -ds=multiwoz -maxdeps=7 -graphhdd=128 -nheads=1 -graph_layer=1
 ```
-
 
 ## Others
 If you have any questions, please feel free to send us emails (shiquan@student.unimelb.edu.au). We are happy to help you:blush: !
