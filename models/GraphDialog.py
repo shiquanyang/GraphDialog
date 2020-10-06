@@ -323,9 +323,9 @@ class GraphDialog(tf.keras.Model):
                 print("MODEL SAVED")
             return bleu_score
         elif (early_stop == 'ENTF1'):
-            # if (F1_score >= matric_best):
-            self.save_model('ENTF1-{:.4f}'.format(F1_score))
-            print("MODEL SAVED")
+            if (F1_score >= matric_best):
+                self.save_model('ENTF1-{:.4f}'.format(F1_score))
+                print("MODEL SAVED")
             return F1_score
         else:
             if (acc_score >= matric_best):
