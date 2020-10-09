@@ -52,7 +52,11 @@ python myTest.py -path=<path_to_saved_model> -ds=multiwoz -maxdeps=5 -graphhdd=1
 
 ## Reproducibility
 We've attached the checkpoints to facilitate the reproduction of the results in the paper.
-For example, you can run:
+For example, for SMD dataset, you can run:
+```console
+python myTest.py -path=save/GraphDialog-KVR/KVRHDD128BSZ32DR0.2L3lr0.001ENTF1-0.4768/ckpt-16 -ds=kvr -rec=1 -maxdeps=5 -graphhdd=128 -nheads=1 -graph_layer=1
+```
+For MultiWOZ 2.1 dataset, you can run:
 ```console
 python myTest.py -path=save/GraphDialog-MULTIWOZ/multiwozHDD128BSZ128DR0.2L1lr0.001ENTF1-0.1513/ckpt-9 -ds=multiwoz -maxdeps=7 -graphhdd=128 -nheads=1 -graph_layer=1
 ```
