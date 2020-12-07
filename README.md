@@ -5,7 +5,16 @@ This is the Tensorflow implementation of the paper:
 
 This code has been written using Tensorflow >= 2.0.0. If you find the source codes or the datasets included in this software useful to your work, please consider citing our paper. The bibtex is:
 <pre>
-
+@inproceedings{yang-etal-2020-graphdialog,
+    title = "{G}raph{D}ialog: Integrating Graph Knowledge into End-to-End Task-Oriented Dialogue Systems",
+    author = "Yang, Shiquan  and
+      Zhang, Rui  and
+      Erfani, Sarah",
+    booktitle = "Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)",
+    year = "2020",
+    url = "https://www.aclweb.org/anthology/2020.emnlp-main.147",
+    pages = "1878--1888"
+}
 </pre>
 
 ## Architecture
