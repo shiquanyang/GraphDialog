@@ -7,9 +7,7 @@ This code has been written using Tensorflow >= 2.0.0. If you find the source cod
 <pre>
 @inproceedings{yang-etal-2020-graphdialog,
     title = "{G}raph{D}ialog: Integrating Graph Knowledge into End-to-End Task-Oriented Dialogue Systems",
-    author = "Yang, Shiquan  and
-      Zhang, Rui  and
-      Erfani, Sarah",
+    author = "Yang, Shiquan and Zhang, Rui and Erfani, Sarah",
     booktitle = "Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)",
     year = "2020",
     url = "https://www.aclweb.org/anthology/2020.emnlp-main.147",
