@@ -25,7 +25,7 @@ This code has been written using Tensorflow >= 2.0.0. If you find the source cod
 
 
 ## Requirements
-* Tensorflow >= 2.0.0
+* Tensorflow 2.0.0a0
 * Spacy 2.2.1
 * cudatoolkit 10.0.130
 * cudnn 7.6.0
